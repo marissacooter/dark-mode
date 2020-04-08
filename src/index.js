@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import {useDarkMode} from './hooks/useDarkMode';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Charts from "./components/Charts";
 import Navbar from "./components/Navbar";
 
 import "./styles.scss";
+import Stitches from "./components/stitches";
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
-
+  const [darkMode, setDarkMode] = useDarkMode(false);
   useEffect(() => {
     axios
       .get(
@@ -20,11 +23,16 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Navbar />
-      <Charts coinData={coinData} />
+      <Route exact path="/">
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Charts coinData={coinData} darkMode={darkMode} />
+      </Route>
+      <Route exact path="/stitches">
+        <Stitches/>
+      </Route>
     </div>
   );
 };
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<Router><App /></Router>, rootElement);
