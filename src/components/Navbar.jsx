@@ -8,7 +8,7 @@ const Navbar = ({darkMode, setDarkMode}) => {
   };
   return (
     <nav className="navbar">
-      <Link to ="/stitches">
+      <Link to ="/stitches" style={{ textDecoration: 'none', color: '#FF69B4'}}>
       <h1>Crypto Tracker</h1>
       </Link>
       <div className="dark-mode__toggle">
